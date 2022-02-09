@@ -5,7 +5,7 @@ type OrderService interface{}
 type OrderRepository interface{}
 
 type orderservice struct {
-	store CustomerRepository
+	store OrderRepository
 }
 
 func NewOrderService(orderRepo OrderRepository) OrderService {

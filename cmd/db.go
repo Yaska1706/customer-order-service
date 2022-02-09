@@ -24,7 +24,6 @@ func setupDatabase(connstring string) (*sql.DB, error) {
 	if err != nil {
 		return nil, errors.Errorf("unable to open connection", err)
 	}
-	defer db.Close()
 
 	if err = db.Ping(); err != nil {
 		return nil, errors.Errorf("Unable to establish connection")

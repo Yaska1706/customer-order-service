@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/yaska1706/customer-order-service/pkg/api"
 	"github.com/yaska1706/customer-order-service/pkg/app"
 	"github.com/yaska1706/customer-order-service/pkg/repository"
 )
@@ -17,7 +18,9 @@ func Run() error {
 		return err
 	}
 	route := mux.NewRouter()
-	serve := app.NewServer(route, nil, nil)
+
+	customerservice := api.NewCustomerService(store)
+	serve := app.NewServer(route, customerservice, nil)
 	serve.Run()
 	return nil
 }
