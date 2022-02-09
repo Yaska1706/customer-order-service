@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
+	_ "github.com/lib/pq"
 	"github.com/pkg/errors"
 )
 
@@ -12,23 +13,24 @@ const (
 	port     = 5432
 	user     = "postgres"
 	password = "root"
-	dbname   = "customer-order"
+	dbname   = "customer_order"
 )
 
+var connstring = "postgres://postgres:root@localhost/" + dbname + "?sslmode=disable"
+
 // setupDatabase creates a database connection
-func setupDatabase() error {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
-	db, err := sql.Open("postgres", psqlInfo)
+func setupDatabase(connstring string) (*sql.DB, error) {
+	db, err := sql.Open("postgres", connstring)
 	if err != nil {
-		return errors.Errorf("unable to open connection", err)
+		return nil, errors.Errorf("unable to open connection", err)
 	}
 	defer db.Close()
 
 	if err = db.Ping(); err != nil {
-		return errors.Errorf("Unable to establish connection")
+		return nil, errors.Errorf("Unable to establish connection")
 	}
 
 	fmt.Println("Successfully connected!")
-	return nil
+	return db, nil
 
 }
