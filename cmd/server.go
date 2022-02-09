@@ -7,9 +7,9 @@ import (
 
 // Run initializes executables for the app
 func Run() error {
-	// if err := setupDatabase(); err != nil {
-	// 	return err
-	// }
+	if err := setupDatabase(); err != nil {
+		return err
+	}
 	route := mux.NewRouter()
 	serve := app.NewServer(route, nil, nil)
 	serve.Run()

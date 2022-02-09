@@ -11,8 +11,8 @@ const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-	password = "your-password"
-	dbname   = "calhounio_demo"
+	password = "root"
+	dbname   = "customer-order"
 )
 
 // setupDatabase creates a database connection
